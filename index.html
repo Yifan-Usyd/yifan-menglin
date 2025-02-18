@@ -1,59 +1,74 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 嘿嘿，小猪，我喜欢你</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>嘿嘿，小猪，我喜欢你</title>
     <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             margin: 0;
             padding: 0;
             background: linear-gradient(45deg, #ffd6e0, #ffe7f3);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
 
         .container {
             text-align: center;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
             z-index: 1;
+            width: 90%;
+            max-width: 400px;
+            margin: 15px;
+            animation: fadeIn 0.5s ease-out;
         }
 
         h1 {
             color: #ff69b4;
-            font-size: 3em;
+            font-size: 2em;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             line-height: 1.6;
-            color: #333;
-            margin-bottom: 30px;
+            color: #444;
+            margin-bottom: 25px;
+            padding: 0 10px;
         }
 
         button {
             padding: 15px 30px;
-            font-size: 1.2em;
+            font-size: 1.1em;
             background: #ff69b4;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
             margin: 10px;
+            width: 80%;
+            max-width: 280px;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
         }
 
-        button:hover {
-            background: #e052a7;
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.2);
         }
 
         .hidden {
@@ -62,74 +77,126 @@
 
         .heart {
             position: fixed;
-            width: 20px;
-            height: 20px;
-            background: red;
+            width: 15px;
+            height: 15px;
+            background: #ff4d7f;
             transform: rotate(-45deg);
-            animation: fall 5s linear infinite;
+            animation: fall linear infinite;
+            opacity: 0.8;
         }
 
         .heart::before,
         .heart::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: red;
+            width: 15px;
+            height: 15px;
+            background: #ff4d7f;
             border-radius: 50%;
         }
 
         .heart::before {
-            top: -10px;
+            top: -7.5px;
             left: 0;
         }
 
         .heart::after {
-            left: 10px;
+            left: 7.5px;
             top: 0;
         }
 
         @keyframes fall {
             0% {
                 top: -20px;
+                transform: rotate(-45deg) translateX(0);
             }
-
             100% {
                 top: 100vh;
+                transform: rotate(-45deg) translateX(100px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
         #finalMessage {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            position: absolute;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        #finalMessage img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin: 0 3px;
         }
     </style>
 </head>
 
 <body>
     <div class="container" id="startPage">
-        <h1>小猪，认识你真的很开心</h1>
-        <p>认识你的每一天都充满惊喜和幸运。</p>
-        <button id="startButton">开启专属惊喜</button>
+        <h1>小猪，认识你真的很开心 <span class="emoji">🌟</span></h1>
+        <p>认识你的每一天都充满惊喜和幸运 <span class="emoji">✨</span></p>
+        <button id="startButton" class="floating">点点试试看 <span class="emoji">💝</span></button>
     </div>
-    <div class="container hidden" id="questionPage">
-        <h1>小猪，我喜欢你</h1>
-        <p>我想一直陪伴在你身边，照顾你，爱护你。你愿意做我的女朋友吗？</p>
-        <button id="yesButton">同意做我女朋友</button>
-        <button id="noButton">再考虑考虑</button>
-    </div>
-    <div id="finalMessage" class="hidden">
-        <h1>太开心啦！</h1>
-        <p>谢谢你的同意，嘿嘿，我会让你成为世界上最幸福的女孩！</p>
-        <img src="https://yifan-usyd.github.io/yifan-menglin/2df1981f7c82f6ec6095a622aa260.png" alt="可爱的小猪表白图" />
 
+    <div class="container hidden" id="questionPage">
+        <h1>小猪，我喜欢你 <span class="emoji">💖</span></h1>
+        <p>我想一直陪伴在你身边，照顾你，爱护你。<br>你愿意做我的女朋友吗？</p>
+        <button id="yesButton" class="floating">同意做我女朋友 <span class="emoji">🥰</span></button>
+        <button id="noButton">再考虑考虑 <span class="emoji">🤔</span></button>
+    </div>
+
+    <div id="finalMessage" class="hidden">
+        <h1>太开心啦！<span class="emoji">🎉</span></h1>
+        <p>谢谢你的同意，嘿嘿<br>我会让你成为世界上最幸福的女孩！<span class="emoji">💑</span></p>
+        <img src="https://yifan-usyd.github.io/yifan-menglin/2df1981f7c82f6ec6095a622aa260.png" alt="可爱的小猪表白图" />
     </div>
 
     <script>
@@ -140,31 +207,92 @@
         const noButton = document.getElementById('noButton');
         const finalMessage = document.getElementById('finalMessage');
 
-        startButton.addEventListener('click', function () {
+        let noButtonClicks = 0;
+        const noButtonTexts = [
+            '再考虑考虑 🤔',
+            '真的不要吗？ 🥺',
+            '我会很难过的 😢',
+            '给我一次机会嘛 💝',
+            '你是我最重要的人 💖'
+        ];
+
+        startButton.addEventListener('click', function() {
             startPage.classList.add('hidden');
             questionPage.classList.remove('hidden');
+            createHearts(20);
         });
 
-        yesButton.addEventListener('click', function () {
+        yesButton.addEventListener('click', function() {
             questionPage.classList.add('hidden');
             finalMessage.classList.remove('hidden');
             createHearts(50);
+            playConfetti();
         });
 
-        noButton.addEventListener('click', function () {
-            alert('再好好考虑一下嘛，我真的很喜欢你！');
+        noButton.addEventListener('click', function() {
+            noButtonClicks++;
+            noButton.classList.add('shake');
+            
+            setTimeout(() => {
+                noButton.classList.remove('shake');
+            }, 500);
+
+            if (noButtonClicks < noButtonTexts.length) {
+                noButton.innerHTML = noButtonTexts[noButtonClicks];
+                noButton.style.transform = `scale(${1 - noButtonClicks * 0.1})`;
+            }
+
+            createHearts(10);
         });
 
         function createHearts(count) {
             for (let i = 0; i < count; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = Math.random() * 5 + 3 + 's';
-                document.body.appendChild(heart);
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 100);
             }
         }
+
+        function playConfetti() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'heart';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 50);
+            }
+        }
+
+        // 禁用双击缩放
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
-
 </html>
